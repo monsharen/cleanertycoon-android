@@ -1,7 +1,8 @@
-package com.lionsinvests.cleanertycoon.game;
+package com.lionsinvests.cleanertycoon.game.mainscreen;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,7 +11,19 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import java.util.*;
+import com.lionsinvests.cleanertycoon.game.Company;
+import com.lionsinvests.cleanertycoon.game.Employee;
+import com.lionsinvests.cleanertycoon.game.EmployeeListAdapter;
+import com.lionsinvests.cleanertycoon.game.Player;
+import com.lionsinvests.cleanertycoon.game.R;
+import com.lionsinvests.cleanertycoon.game.TimePlayed;
+import com.lionsinvests.cleanertycoon.game.recruitment.RecruitmentActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,17 +35,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Player player = new Player("CleanTech");
+        Company company = new Company("CleanTech", 10000);
+        Player player = new Player(company);
         timePlayed = new TimePlayed(player);
 
-        List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee("Cheryl"));
-
         configurePlayerView(player);
-        configureEmployeeListView(employees);
+        configureEmployeeListView(company.getEmployees());
         configureTimePlayed();
         configureTimer();
+        configureActionMenu();
     }
 
     @Override
@@ -54,6 +65,18 @@ public class MainActivity extends AppCompatActivity {
             timer.cancel();
             timer = null;
         }
+    }
+
+    private void configureActionMenu() {
+        final Intent intent = new Intent(this, RecruitmentActivity.class);
+
+        final Button button = findViewById(R.id.recruitButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(intent);
+            }
+        });
     }
 
     private void configureTimer() {
@@ -96,11 +119,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void configurePlayerView(Player player) {
         TextView textView = findViewById(R.id.playerCompanyName);
-        textView.setText(player.getCompanyName());
+        textView.setText(player.getCompany().getName());
         textView = findViewById(R.id.playerFunds);
-        textView.setText(String.format(Locale.getDefault(), "Funds: $%d", player.getFunds()));
+        textView.setText(String.format(Locale.getDefault(), "Funds: $%.0f", player.getCompany().getFunds()));
         RatingBar rating = findViewById(R.id.playerRating);
-        rating.setNumStars(player.getRating());
+        rating.setNumStars(player.getCompany().getRating());
     }
 
     private void configureEmployeeListView(List<Employee> employees) {

@@ -1,14 +1,11 @@
 package com.lionsinvests.cleanertycoon.game;
 
-import android.os.Debug;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -27,7 +24,7 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
         }
     }
 
-    EmployeeListAdapter(List<Employee> employeeList, View.OnClickListener onClickListener) {
+    public EmployeeListAdapter(List<Employee> employeeList, View.OnClickListener onClickListener) {
         this.employeeList = employeeList;
         this.onClickListener = onClickListener;
     }

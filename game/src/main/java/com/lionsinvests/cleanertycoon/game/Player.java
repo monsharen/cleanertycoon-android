@@ -2,37 +2,15 @@ package com.lionsinvests.cleanertycoon.game;
 
 public class Player {
 
-    private String companyName;
-    private int funds = 10000;
-    private int rating = 1;
+    private final Company company;
     private float timePlayed = 0;
 
-    public Player(String companyName) {
-        this.companyName = companyName;
+    public Player(Company company) {
+        this.company = company;
     }
 
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public int getFunds() {
-        return funds;
-    }
-
-    public void setFunds(int funds) {
-        this.funds = funds;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
+    public Company getCompany() {
+        return company;
     }
 
     public float getTimePlayed() {
