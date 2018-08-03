@@ -11,7 +11,6 @@ public class TimePlayed {
     }
 
     public void tick() {
-
         player.setTimePlayed(player.getTimePlayed() + 1);
     }
 

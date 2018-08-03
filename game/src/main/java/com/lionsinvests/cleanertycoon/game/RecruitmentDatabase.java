@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class RecruitmentDatabase {
 
@@ -27,8 +28,11 @@ public class RecruitmentDatabase {
         return employees;
     }
 
-    public void refreshAvailableRecruits(int numberOfRecruits) {
+    public void refreshAvailableRecruits() {
         employees.clear();
+
+        //Random random = new Random();
+        int numberOfRecruits = 10; //random.nextInt(8 - 1) + 1;
 
         for (int i = 0; i < numberOfRecruits; i++) {
             Faker faker = new Faker();

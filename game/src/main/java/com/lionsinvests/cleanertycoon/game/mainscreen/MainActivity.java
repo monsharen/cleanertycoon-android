@@ -11,12 +11,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.lionsinvests.cleanertycoon.game.Company;
-import com.lionsinvests.cleanertycoon.game.Employee;
-import com.lionsinvests.cleanertycoon.game.EmployeeListAdapter;
-import com.lionsinvests.cleanertycoon.game.Player;
-import com.lionsinvests.cleanertycoon.game.R;
-import com.lionsinvests.cleanertycoon.game.TimePlayed;
+import com.lionsinvests.cleanertycoon.game.*;
 import com.lionsinvests.cleanertycoon.game.recruitment.RecruitmentActivity;
 
 import java.util.ArrayList;
@@ -35,12 +30,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Company company = new Company("CleanTech", 10000);
-        Player player = new Player(company);
-        timePlayed = new TimePlayed(player);
+
+        RecruitmentDatabase.getInstance().refreshAvailableRecruits();
+
+        Player player = loadPlayer();
 
         configurePlayerView(player);
-        configureEmployeeListView(company.getEmployees());
+        configureEmployeeListView(player.getCompany().getEmployees());
         configureTimePlayed();
         configureTimer();
         configureActionMenu();
@@ -65,6 +61,14 @@ public class MainActivity extends AppCompatActivity {
             timer.cancel();
             timer = null;
         }
+    }
+
+    private Player loadPlayer() {
+        Company company = new Company("CleanTech", 10000);
+        Player player = new Player(company);
+        timePlayed = new TimePlayed(player);
+        PlayerService.getInstance().setPlayer(player);
+        return player;
     }
 
     private void configureActionMenu() {

@@ -9,30 +9,29 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.lionsinvests.cleanertycoon.game.Employee;
-import com.lionsinvests.cleanertycoon.game.EmployeeListAdapter;
-import com.lionsinvests.cleanertycoon.game.R;
-import com.lionsinvests.cleanertycoon.game.RecruitmentDatabase;
+import com.lionsinvests.cleanertycoon.game.*;
 
 import java.util.List;
 import java.util.Random;
 
 public class RecruitmentActivity extends AppCompatActivity {
 
+    private RecyclerView.Adapter recruitList = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recruitment);
-        Log.d("TEST", "recruitment view");
-        refreshRecruitmentList();
-        configureAvailableEmployees();
-
     }
 
-    private void refreshRecruitmentList() {
-        Random random = new Random();
-        int i = random.nextInt(8 - 1) + 1;
-        RecruitmentDatabase.getInstance().refreshAvailableRecruits(i);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (recruitList != null) {
+            recruitList.notifyDataSetChanged();
+        } else {
+            configureAvailableEmployees();
+        }
     }
 
     private void configureAvailableEmployees() {
@@ -45,8 +44,8 @@ public class RecruitmentActivity extends AppCompatActivity {
 
         RecruitmentListOnClickListener employeeListOnClickListener = new RecruitmentListOnClickListener(employees, employeeListRecyclerView);
 
-        RecyclerView.Adapter mAdapter = new EmployeeListAdapter(employees, employeeListOnClickListener);
-        employeeListRecyclerView.setAdapter(mAdapter);
+        recruitList = new EmployeeListAdapter(employees, employeeListOnClickListener);
+        employeeListRecyclerView.setAdapter(recruitList);
     }
 
     private class RecruitmentListOnClickListener implements View.OnClickListener {
@@ -64,6 +63,8 @@ public class RecruitmentActivity extends AppCompatActivity {
             int itemPosition = mRecyclerView.getChildLayoutPosition(view);
             Employee item = employees.get(itemPosition);
             Log.d("Test", "clicked on " + item.getName());
+            PlayerService.getInstance().getPlayer().getCompany().getEmployees().add(item);
+            employees.remove(item);
         }
     }
 }
