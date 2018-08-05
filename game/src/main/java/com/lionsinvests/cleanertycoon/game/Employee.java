@@ -2,20 +2,18 @@ package com.lionsinvests.cleanertycoon.game;
 
 public class Employee {
 
-    private String name;
+    private final String name;
     private int happiness = 100;
     private Contract contract = null;
+    private final float salary;
 
-    public Employee(String name) {
+    public Employee(String name, float salary) {
         this.name = name;
+        this.salary = salary;
     }
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getHappiness() {
@@ -32,5 +30,9 @@ public class Employee {
 
     public void setContract(Contract contract) {
         this.contract = contract;
+    }
+
+    public float getSalary() {
+        return salary;
     }
 }

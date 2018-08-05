@@ -1,5 +1,6 @@
 package com.lionsinvests.cleanertycoon.game.recruitment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -42,7 +43,7 @@ public class RecruitmentActivity extends AppCompatActivity {
 
         List<Employee> employees = RecruitmentDatabase.getInstance().getEmployees();
 
-        RecruitmentListOnClickListener employeeListOnClickListener = new RecruitmentListOnClickListener(employees, employeeListRecyclerView);
+        RecruitmentListOnClickListener employeeListOnClickListener = new RecruitmentListOnClickListener(employeeListRecyclerView);
 
         recruitList = new EmployeeListAdapter(employees, employeeListOnClickListener);
         employeeListRecyclerView.setAdapter(recruitList);
@@ -50,21 +51,18 @@ public class RecruitmentActivity extends AppCompatActivity {
 
     private class RecruitmentListOnClickListener implements View.OnClickListener {
 
-        private List<Employee> employees;
         private RecyclerView mRecyclerView;
 
-        RecruitmentListOnClickListener(List<Employee> employees, RecyclerView recyclerView) {
-            this.employees = employees;
+        RecruitmentListOnClickListener(RecyclerView recyclerView) {
             this.mRecyclerView = recyclerView;
         }
 
         @Override
         public void onClick(View view) {
             int itemPosition = mRecyclerView.getChildLayoutPosition(view);
-            Employee item = employees.get(itemPosition);
-            Log.d("Test", "clicked on " + item.getName());
-            PlayerService.getInstance().getPlayer().getCompany().getEmployees().add(item);
-            employees.remove(item);
+            final Intent intent = new Intent(RecruitmentActivity.this, HireActivity.class);
+            intent.putExtra("itemPosition", itemPosition);
+            startActivity(intent);
         }
     }
 }

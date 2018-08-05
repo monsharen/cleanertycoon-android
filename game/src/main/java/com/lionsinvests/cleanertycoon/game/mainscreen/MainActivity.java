@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer = null;
     private TimePlayed timePlayed;
     private boolean inBackground = false;
+    private RecyclerView.Adapter employeeListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +47,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         inBackground = false;
+
+        Log.d("test", "onResume");
+        if (employeeListAdapter != null) {
+            employeeListAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         inBackground = true;
+
+        if (employeeListAdapter != null) {
+            employeeListAdapter = null;
+        }
     }
 
     @Override
@@ -138,8 +148,8 @@ public class MainActivity extends AppCompatActivity {
 
         EmployeeListOnClickListener employeeListOnClickListener = new EmployeeListOnClickListener(employees, employeeListRecyclerView);
 
-        RecyclerView.Adapter mAdapter = new EmployeeListAdapter(employees, employeeListOnClickListener);
-        employeeListRecyclerView.setAdapter(mAdapter);
+        employeeListAdapter = new EmployeeListAdapter(employees, employeeListOnClickListener);
+        employeeListRecyclerView.setAdapter(employeeListAdapter);
     }
 
     private void startTimer() {

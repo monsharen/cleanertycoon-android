@@ -25,6 +25,7 @@
         </activity>
 
         <activity android:name=".recruitment.RecruitmentActivity" />
+        <activity android:name=".recruitment.HireActivity" />
 
     </application>
 
