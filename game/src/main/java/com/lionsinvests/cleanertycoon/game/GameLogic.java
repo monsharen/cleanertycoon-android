@@ -1,13 +1,16 @@
 package com.lionsinvests.cleanertycoon.game;
 
 import android.util.Log;
+import com.lionsinvests.cleanertycoon.game.events.GameOverOutOfFundsGameEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameLogic {
 
     private static GameLogic INSTANCE = null;
 
+    private List<GameEvent> events = null;
     private TimePlayed timePlayed;
     private Player player;
 
@@ -36,7 +39,11 @@ public class GameLogic {
             Log.d(GameLogic.class.getSimpleName(), "tick: " + timePlayed.isPaused() + ", " + timePlayed.getDays() + "/" + timePlayed.getWeeks() + "/" + timePlayed.getYears());
 
             if (timePlayed.getDays() == 0) {
-                GameLogic.getInstance().deductSalaries();
+                deductSalaries();
+            }
+
+            if (player.getCompany().getFunds() < 0) {
+                events.add(new GameOverOutOfFundsGameEvent(null));
             }
         }
     }
@@ -45,9 +52,10 @@ public class GameLogic {
         Company company = new Company("CleanTech", 10000);
         player = new Player(company);
         timePlayed = new TimePlayed(player);
+        events = new ArrayList<>();
     }
 
-    public void deductSalaries() {
+    private void deductSalaries() {
         Company company = player.getCompany();
         List<Employee> employees = company.getEmployees();
 

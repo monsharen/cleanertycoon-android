@@ -5,7 +5,7 @@
     <application>
 
 
-        <activity android:name=".mainscreen.MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter android:order="1">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -24,8 +24,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".recruitment.RecruitmentActivity" />
-        <activity android:name=".recruitment.HireActivity" />
+        <activity android:name=".activities.RecruitmentActivity" />
+        <activity android:name=".activities.HireActivity" />
 
     </application>
 

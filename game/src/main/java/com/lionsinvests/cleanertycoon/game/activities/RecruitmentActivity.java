@@ -1,19 +1,15 @@
-package com.lionsinvests.cleanertycoon.game.recruitment;
+package com.lionsinvests.cleanertycoon.game.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.lionsinvests.cleanertycoon.game.*;
 
 import java.util.List;
-import java.util.Random;
 
 public class RecruitmentActivity extends AppCompatActivity {
 

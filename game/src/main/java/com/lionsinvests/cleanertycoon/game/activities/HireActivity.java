@@ -1,4 +1,4 @@
-package com.lionsinvests.cleanertycoon.game.recruitment;
+package com.lionsinvests.cleanertycoon.game.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -1,4 +1,4 @@
-package com.lionsinvests.cleanertycoon.game.mainscreen;
+package com.lionsinvests.cleanertycoon.game.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.lionsinvests.cleanertycoon.game.*;
-import com.lionsinvests.cleanertycoon.game.recruitment.RecruitmentActivity;
 
 import java.util.List;
 import java.util.Locale;
