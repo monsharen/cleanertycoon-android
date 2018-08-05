@@ -31,7 +31,7 @@ public class GameLogic {
         return timePlayed;
     }
 
-    public void timeTick() {
+    public void timeTick() throws GameException {
         if (!timePlayed.isPaused()) {
             timePlayed.tick();
             Log.d(GameLogic.class.getSimpleName(), "tick: " + timePlayed.isPaused() + ", " + timePlayed.getDays() + "/" + timePlayed.getWeeks() + "/" + timePlayed.getYears());
@@ -41,7 +41,7 @@ public class GameLogic {
             }
 
             if (player.getCompany().getFunds() < 0) {
-                // Game over out of funds
+                throw new OutOfFundsException();
             }
         }
     }

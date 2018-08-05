@@ -25,7 +25,7 @@ public class PlayState implements State, LifeCycleAware {
     private Timer timer = null;
 
     @Override
-    public void init(final Activity activity, Session session, final GameLogic gameLogic, EventListener eventListener) {
+    public void init(final Activity activity, Session session, final GameLogic gameLogic, final EventListener eventListener) {
         this.eventListener = eventListener;
         activity.setContentView(R.layout.activity_main);
 
@@ -42,7 +42,13 @@ public class PlayState implements State, LifeCycleAware {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                gameLogic.timeTick();
+                try {
+                    gameLogic.timeTick();
+                } catch (OutOfFundsException e) {
+                    eventListener.onEvent(StateId.GAME_OVER_OUT_OF_FUNDS);
+                } catch (GameException e) {
+                    Log.e(PlayState.class.getSimpleName(), "failed to perform turn" , e);
+                }
 
                 activity.runOnUiThread(new Runnable() {
                     @Override
@@ -60,11 +66,6 @@ public class PlayState implements State, LifeCycleAware {
                 });
             }
         }, 1000, 1000);
-    }
-
-    @Override
-    public void execute() {
-
     }
 
     @Override

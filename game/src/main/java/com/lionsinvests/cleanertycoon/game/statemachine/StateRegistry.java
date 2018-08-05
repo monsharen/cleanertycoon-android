@@ -2,7 +2,7 @@ package com.lionsinvests.cleanertycoon.game.statemachine;
 
 import android.app.Activity;
 import com.lionsinvests.cleanertycoon.game.GameLogic;
-import com.lionsinvests.cleanertycoon.game.events.GameOverOutOfFundsGameEvent;
+import com.lionsinvests.cleanertycoon.game.events.GameOverOutOfFundsState;
 import com.lionsinvests.cleanertycoon.game.states.HireState;
 import com.lionsinvests.cleanertycoon.game.states.PauseState;
 import com.lionsinvests.cleanertycoon.game.states.PlayState;
@@ -19,7 +19,7 @@ public class StateRegistry {
         STATES.put(StateId.INIT, new InitalState());
         STATES.put(StateId.PAUSED, new PauseState());
         STATES.put(StateId.PLAYING, new PlayState());
-        STATES.put(StateId.GAME_OVER_OUT_OF_FUNDS, new GameOverOutOfFundsGameEvent());
+        STATES.put(StateId.GAME_OVER_OUT_OF_FUNDS, new GameOverOutOfFundsState());
         STATES.put(StateId.RECRUITMENT, new RecruitmentState());
         STATES.put(StateId.HIRE, new HireState());
     }
@@ -32,11 +32,6 @@ public class StateRegistry {
 
         @Override
         public void init(Activity activity, Session session, GameLogic gameLogic, EventListener eventListener) {
-
-        }
-
-        @Override
-        public void execute() {
 
         }
 

@@ -21,10 +21,6 @@ public class StateMachine implements LifeCycleAware {
         this.eventListener = new EventListener(this);
     }
 
-    public void execute() {
-        currentState.execute();
-    }
-
     public void changeState(StateId stateId) {
         if (currentState != null) {
             currentState.end();

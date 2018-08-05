@@ -27,11 +27,6 @@ public class RecruitmentState implements State, LifeCycleAware {
     }
 
     @Override
-    public void execute() {
-
-    }
-
-    @Override
     public void end() {
 
     }

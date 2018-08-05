@@ -7,16 +7,11 @@ import com.lionsinvests.cleanertycoon.game.statemachine.EventListener;
 import com.lionsinvests.cleanertycoon.game.statemachine.Session;
 import com.lionsinvests.cleanertycoon.game.statemachine.State;
 
-public class GameOverOutOfFundsGameEvent implements State {
+public class GameOverOutOfFundsState implements State {
 
     @Override
     public void init(Activity activity, Session session, GameLogic gameLogic, EventListener eventListener) {
-
-    }
-
-    @Override
-    public void execute() {
-        Log.d(GameOverOutOfFundsGameEvent.class.getSimpleName(), "Game over!");
+        Log.d(GameOverOutOfFundsState.class.getSimpleName(), "Game over!");
     }
 
     @Override

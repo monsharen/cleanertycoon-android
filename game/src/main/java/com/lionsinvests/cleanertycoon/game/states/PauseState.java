@@ -23,11 +23,6 @@ public class PauseState implements State {
     }
 
     @Override
-    public void execute() {
-
-    }
-
-    @Override
     public void end() {
         if (timer != null) {
             timer.cancel();

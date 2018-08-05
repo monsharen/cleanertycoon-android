@@ -28,11 +28,6 @@ public class HireState implements State {
     }
 
     @Override
-    public void execute() {
-
-    }
-
-    @Override
     public void end() {
 
     }
