@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.lionsinvests.cleanertycoon.game.*;
 import com.lionsinvests.cleanertycoon.game.recruitment.RecruitmentActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
@@ -23,7 +22,6 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
     private Timer timer = null;
-    private TimePlayed timePlayed;
     private boolean inBackground = false;
     private RecyclerView.Adapter employeeListAdapter;
 
@@ -74,11 +72,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Player loadPlayer() {
-        Company company = new Company("CleanTech", 10000);
-        Player player = new Player(company);
-        timePlayed = new TimePlayed(player);
-        PlayerService.getInstance().setPlayer(player);
-        return player;
+        GameLogic.getInstance().startNewGame();
+        return GameLogic.getInstance().getPlayer();
     }
 
     private void configureActionMenu() {
@@ -98,16 +93,21 @@ public class MainActivity extends AppCompatActivity {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (!timePlayed.isPaused() && !inBackground) {
-                    timePlayed.tick();
+                if (!inBackground) {
+                    GameLogic.getInstance().timeTick();
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            final TextView weeksPlayed = findViewById(R.id.playerWeeksPlayed);
-                            final TextView yearsPlayed = findViewById(R.id.playerYearsPlayed);
-                            weeksPlayed.setText(String.format(Locale.getDefault(), "Weeks: %.0f", timePlayed.getWeeks()));
-                            yearsPlayed.setText(String.format(Locale.getDefault(), "Years: %.0f", timePlayed.getYears()));
+                            Player player = GameLogic.getInstance().getPlayer();
+
+                            TimePlayed timePlayed = GameLogic.getInstance().getTimePlayed();
+                            TextView textView = findViewById(R.id.playerWeeksPlayed);
+                            textView.setText(String.format(Locale.getDefault(), "Weeks: %d", timePlayed.getWeeks()));
+                            textView = findViewById(R.id.playerYearsPlayed);
+                            textView.setText(String.format(Locale.getDefault(), "Years: %d", timePlayed.getYears()));
+                            textView = findViewById(R.id.playerFunds);
+                            textView.setText(String.format(Locale.getDefault(), "Funds: $%.0f", player.getCompany().getFunds()));
                         }
                     });
                 }
@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                TimePlayed timePlayed = GameLogic.getInstance().getTimePlayed();
                 if (timePlayed.isPaused()) {
                     startTimer();
                 } else {
@@ -155,13 +156,13 @@ public class MainActivity extends AppCompatActivity {
     private void startTimer() {
         final Button button = findViewById(R.id.playPauseButton);
         button.setText("Pause");
-        timePlayed.start();
+        GameLogic.getInstance().getTimePlayed().start();
     }
 
     private void stopTimer() {
         final Button button = findViewById(R.id.playPauseButton);
         button.setText("Play");
-        timePlayed.pause();
+        GameLogic.getInstance().getTimePlayed().pause();
     }
 
     private class EmployeeListOnClickListener implements View.OnClickListener {

@@ -3,7 +3,6 @@ package com.lionsinvests.cleanertycoon.game.recruitment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,8 +41,8 @@ public class HireActivity extends AppCompatActivity {
         hireButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PlayerService playerService = PlayerService.getInstance();
-                Company company = playerService.getPlayer().getCompany();
+                Player player = GameLogic.getInstance().getPlayer();
+                Company company = player.getCompany();
                 company.getEmployees().add(employee);
                 RecruitmentDatabase.getInstance().getEmployees().remove(employee);
                 finish();
