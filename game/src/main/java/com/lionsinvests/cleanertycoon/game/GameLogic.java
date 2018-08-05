@@ -1,29 +1,27 @@
 package com.lionsinvests.cleanertycoon.game;
 
 import android.util.Log;
-import com.lionsinvests.cleanertycoon.game.events.GameOverOutOfFundsGameEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameLogic {
 
-    private static GameLogic INSTANCE = null;
-
+    //private static GameLogic INSTANCE = null;
     private List<GameEvent> events = null;
     private TimePlayed timePlayed;
     private Player player;
 
-    private GameLogic() {
+    public GameLogic() {
 
     }
 
-    public static GameLogic getInstance() {
+    /* public static GameLogic getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new GameLogic();
         }
         return INSTANCE;
-    }
+    }*/
 
     public Player getPlayer() {
         return player;
@@ -43,12 +41,13 @@ public class GameLogic {
             }
 
             if (player.getCompany().getFunds() < 0) {
-                events.add(new GameOverOutOfFundsGameEvent(null));
+                // Game over out of funds
             }
         }
     }
 
     public void startNewGame() {
+        RecruitmentDatabase.getInstance().refreshAvailableRecruits();
         Company company = new Company("CleanTech", 10000);
         player = new Player(company);
         timePlayed = new TimePlayed(player);
