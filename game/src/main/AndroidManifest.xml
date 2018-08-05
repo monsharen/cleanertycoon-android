@@ -24,9 +24,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.RecruitmentActivity" />
-        <activity android:name=".activities.HireActivity" />
-
     </application>
 
 </manifest>

@@ -1,7 +1,6 @@
 package com.lionsinvests.cleanertycoon.game.states;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,7 +9,6 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import com.lionsinvests.cleanertycoon.game.*;
-import com.lionsinvests.cleanertycoon.game.activities.RecruitmentActivity;
 import com.lionsinvests.cleanertycoon.game.statemachine.*;
 
 import java.util.List;
@@ -114,15 +112,12 @@ public class PlayState implements State, LifeCycleAware {
     }
 
     private void configureActionMenu(final Activity activity) {
-        final Intent intent = new Intent(activity, RecruitmentActivity.class);
 
         final Button button = activity.findViewById(R.id.recruitButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Should not launch a new activity...
                 eventListener.onEvent(StateId.RECRUITMENT);
-                //activity.startActivity(intent);
             }
         });
     }
