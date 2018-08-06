@@ -44,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
         stateMachine.onDestroy();
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
+
     private void startGame() {
         gameLogic.startNewGame();
         stateMachine.changeState(StateId.PLAYING);
