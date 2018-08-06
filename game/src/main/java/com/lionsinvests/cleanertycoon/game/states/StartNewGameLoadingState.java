@@ -11,10 +11,18 @@ import com.lionsinvests.cleanertycoon.game.statemachine.StateId;
 
 public class StartNewGameLoadingState implements State {
     @Override
-    public void init(Activity activity, Session session, GameLogic gameLogic, EventListener eventListener) {
+    public void init(final Activity activity, final Session session, final GameLogic gameLogic, final EventListener eventListener) {
         activity.setContentView(R.layout.activity_loading);
-        gameLogic.startNewGame();
-        //eventListener.onEvent(StateId.PLAYING);
+
+        new Runnable() {
+
+            @Override
+            public void run() {
+                gameLogic.startNewGame();
+
+            }
+        }.run();
+        eventListener.onEvent(StateId.PLAYING);
     }
 
     @Override

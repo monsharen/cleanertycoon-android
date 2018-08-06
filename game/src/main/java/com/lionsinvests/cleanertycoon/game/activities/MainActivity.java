@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         StateRegistry stateRegistry = new StateRegistry();
         stateRegistry.register();
         stateMachine = new StateMachine(stateRegistry, this, gameLogic);
+        stateMachine.initiate();
     }
 
     @Override

@@ -33,11 +33,9 @@ public class RecruitmentDatabase {
 
         Random random = new Random();
         int numberOfRecruits = 10; //random.nextInt(8 - 1) + 1;
-
+        Faker faker = new Faker();
         for (int i = 0; i < numberOfRecruits; i++) {
             float salary = 100 + random.nextFloat() * (500f - 100f);
-
-            Faker faker = new Faker();
             String name = faker.name().fullName();
             Employee employee = new Employee(name, salary);
             employees.add(employee);

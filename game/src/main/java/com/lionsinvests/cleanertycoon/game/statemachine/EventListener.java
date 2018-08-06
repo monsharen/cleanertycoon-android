@@ -8,7 +8,7 @@ public class EventListener {
         this.stateMachine = stateMachine;
     }
 
-    public void onEvent(StateId stateId) {
+    public synchronized void onEvent(StateId stateId) {
         stateMachine.changeState(stateId);
     }
 }

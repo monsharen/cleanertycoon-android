@@ -1,6 +1,8 @@
 package com.lionsinvests.cleanertycoon.game.statemachine;
 
 import android.app.Activity;
+import android.util.Log;
+
 import com.lionsinvests.cleanertycoon.game.GameLogic;
 
 public class StateMachine implements LifeCycleAware {
@@ -14,14 +16,18 @@ public class StateMachine implements LifeCycleAware {
 
     public StateMachine(StateRegistry stateRegistry, Activity activity, GameLogic gameLogic) {
         this.stateRegistry = stateRegistry;
-        currentState = stateRegistry.get(StateId.INIT);
         session = new Session();
         this.activity = activity;
         this.gameLogic = gameLogic;
         this.eventListener = new EventListener(this);
     }
 
+    public void initiate() {
+        changeState(StateId.INIT);
+    }
+
     public void changeState(StateId stateId) {
+        Log.d(getClass().getSimpleName(), "changing state from " + currentState + " to " + stateId);
         if (currentState != null) {
             currentState.end();
         }
