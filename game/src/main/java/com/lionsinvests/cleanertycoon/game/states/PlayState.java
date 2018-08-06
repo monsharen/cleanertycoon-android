@@ -56,6 +56,8 @@ public class PlayState implements State, LifeCycleAware {
                         TimePlayed timePlayed = gameLogic.getTimePlayed();
                         TextView textView = activity.findViewById(R.id.playerWeeksPlayed);
                         textView.setText(String.format(Locale.getDefault(), "Weeks: %d", timePlayed.getWeeks()));
+                        textView = activity.findViewById(R.id.playerDaysPlayed);
+                        textView.setText(String.format(Locale.getDefault(), "Days: %d", timePlayed.getDays() + 1));
                         textView = activity.findViewById(R.id.playerYearsPlayed);
                         textView.setText(String.format(Locale.getDefault(), "Years: %d", timePlayed.getYears()));
                         textView = activity.findViewById(R.id.playerFunds);
