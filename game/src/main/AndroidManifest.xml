@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lionsinvests.cleanertycoon.game">
 
-    <application android:fullBackupContent="false">
+    <application android:fullBackupContent="false" android:icon="@mipmap/ic_launcher">
 
 
         <activity android:name=".activities.MainActivity" android:screenOrientation="portrait">

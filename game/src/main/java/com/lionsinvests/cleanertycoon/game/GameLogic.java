@@ -7,7 +7,6 @@ import java.util.List;
 
 public class GameLogic {
 
-    //private static GameLogic INSTANCE = null;
     private List<GameEvent> events = null;
     private TimePlayed timePlayed;
     private Player player;
@@ -15,13 +14,6 @@ public class GameLogic {
     public GameLogic() {
 
     }
-
-    /* public static GameLogic getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new GameLogic();
-        }
-        return INSTANCE;
-    }*/
 
     public Player getPlayer() {
         return player;
