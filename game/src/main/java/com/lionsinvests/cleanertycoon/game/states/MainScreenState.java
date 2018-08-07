@@ -16,17 +16,19 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class PlayState implements State, LifeCycleAware {
+public class MainScreenState implements State, LifeCycleAware {
 
     private RecyclerView.Adapter employeeListAdapter;
     private EventListener eventListener;
     private Timer timer = null;
     private GameLogic gameLogic;
     private Activity activity;
+    private Session session;
 
     @Override
     public void init(final Activity activity, Session session, final GameLogic gameLogic, final EventListener eventListener) {
         this.activity = activity;
+        this.session = session;
         this.eventListener = eventListener;
         activity.setContentView(R.layout.activity_main);
         this.gameLogic = gameLogic;
@@ -35,10 +37,20 @@ public class PlayState implements State, LifeCycleAware {
         configureEmployeeListView(gameLogic.getPlayer().getCompany().getEmployees());
         configureTimePlayed(gameLogic);
         configureActionMenu();
-
-        gameLogic.getTimePlayed().start();
         updatePlayPauseButton();
+        configureTimer();
 
+    }
+
+    @Override
+    public void end() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
+
+    private void configureTimer() {
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -48,35 +60,31 @@ public class PlayState implements State, LifeCycleAware {
                 } catch (OutOfFundsException e) {
                     eventListener.onEvent(StateId.GAME_OVER_OUT_OF_FUNDS);
                 } catch (GameException e) {
-                    Log.e(PlayState.class.getSimpleName(), "failed to perform turn" , e);
+                    Log.e(MainScreenState.class.getSimpleName(), "failed to perform turn" , e);
                 }
 
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Player player = gameLogic.getPlayer();
-
-                        TimePlayed timePlayed = gameLogic.getTimePlayed();
-                        TextView textView = activity.findViewById(R.id.playerWeeksPlayed);
-                        textView.setText(String.format(Locale.getDefault(), "Weeks: %d", timePlayed.getWeeks()));
-                        textView = activity.findViewById(R.id.playerDaysPlayed);
-                        textView.setText(String.format(Locale.getDefault(), "Days: %d", timePlayed.getDays() + 1));
-                        textView = activity.findViewById(R.id.playerYearsPlayed);
-                        textView.setText(String.format(Locale.getDefault(), "Years: %d", timePlayed.getYears()));
-                        textView = activity.findViewById(R.id.playerFunds);
-                        textView.setText(String.format(Locale.getDefault(), "Funds: $%.0f", player.getCompany().getFunds()));
+                        redrawTimerStats();
                     }
                 });
             }
         }, 1000, 1000);
     }
 
-    @Override
-    public void end() {
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
+    private void redrawTimerStats() {
+        Player player = gameLogic.getPlayer();
+
+        TimePlayed timePlayed = gameLogic.getTimePlayed();
+        TextView textView = activity.findViewById(R.id.playerWeeksPlayed);
+        textView.setText(String.format(Locale.getDefault(), "Weeks: %d", timePlayed.getWeeks()));
+        textView = activity.findViewById(R.id.playerDaysPlayed);
+        textView.setText(String.format(Locale.getDefault(), "Days: %d", timePlayed.getDays() + 1));
+        textView = activity.findViewById(R.id.playerYearsPlayed);
+        textView.setText(String.format(Locale.getDefault(), "Years: %d", timePlayed.getYears()));
+        textView = activity.findViewById(R.id.playerFunds);
+        textView.setText(String.format(Locale.getDefault(), "Funds: $%.0f", player.getCompany().getFunds()));
     }
 
     private void configurePlayerView(Player player) {
@@ -101,7 +109,7 @@ public class PlayState implements State, LifeCycleAware {
     }
 
     private void configureTimePlayed(final GameLogic gameLogic) {
-
+        redrawTimerStats();
         final Button button = activity.findViewById(R.id.playPauseButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +177,8 @@ public class PlayState implements State, LifeCycleAware {
             int itemPosition = mRecyclerView.getChildLayoutPosition(view);
             Employee item = employees.get(itemPosition);
             Log.d("Test", "clicked on " + item.getName());
+            session.put("employeeId", itemPosition);
+            eventListener.onEvent(StateId.EMPLOYEE);
         }
     }
 }

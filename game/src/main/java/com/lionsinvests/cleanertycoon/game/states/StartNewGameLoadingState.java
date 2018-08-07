@@ -22,7 +22,7 @@ public class StartNewGameLoadingState implements State {
 
             }
         }.run();
-        eventListener.onEvent(StateId.PLAYING);
+        eventListener.onEvent(StateId.MAIN_SCREEN);
     }
 
     @Override

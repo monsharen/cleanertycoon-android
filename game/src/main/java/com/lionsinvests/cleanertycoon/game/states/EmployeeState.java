@@ -4,27 +4,28 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import com.lionsinvests.cleanertycoon.game.*;
+import com.lionsinvests.cleanertycoon.game.Employee;
+import com.lionsinvests.cleanertycoon.game.GameLogic;
+import com.lionsinvests.cleanertycoon.game.R;
 import com.lionsinvests.cleanertycoon.game.statemachine.EventListener;
 import com.lionsinvests.cleanertycoon.game.statemachine.Session;
 import com.lionsinvests.cleanertycoon.game.statemachine.State;
 import com.lionsinvests.cleanertycoon.game.statemachine.StateId;
 
-import java.util.List;
+public class EmployeeState implements State {
 
-public class HireState implements State {
-
+    private Activity activity;
     private EventListener eventListener;
 
     @Override
     public void init(Activity activity, Session session, GameLogic gameLogic, EventListener eventListener) {
         this.eventListener = eventListener;
-        activity.setContentView(R.layout.activity_hire);
-        int itemId = session.getInteger("employeeId");
-        List<Employee> employees = RecruitmentDatabase.getInstance().getEmployees();
-        Employee employee = employees.get(itemId);
-        configureProfile(activity, employee);
-        configureHireMenu(activity, employee, gameLogic);
+        this.activity = activity;
+        activity.setContentView(R.layout.activity_employee);
+        Integer employeeId = session.getInteger("employeeId");
+        Employee employee = gameLogic.getPlayer().getCompany().getEmployees().get(employeeId);
+        configureProfile(employee);
+        configureMenu();
     }
 
     @Override
@@ -32,7 +33,7 @@ public class HireState implements State {
 
     }
 
-    private void configureProfile(Activity activity, Employee employee) {
+    private void configureProfile(Employee employee) {
         TextView view = activity.findViewById(R.id.name);
         view.setText(employee.getName());
         view = activity.findViewById(R.id.level);
@@ -41,16 +42,11 @@ public class HireState implements State {
         //view.setText(employee.getHappiness());
     }
 
-    private void configureHireMenu(final Activity activity, final Employee employee, final GameLogic gameLogic) {
-        Button hireButton = activity.findViewById(R.id.hireButton);
-        hireButton.setOnClickListener(new View.OnClickListener() {
+    private void configureMenu() {
+        Button view = activity.findViewById(R.id.backButton);
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Player player = gameLogic.getPlayer();
-                Company company = player.getCompany();
-                company.getEmployees().add(employee);
-                RecruitmentDatabase.getInstance().getEmployees().remove(employee);
-                //activity.finish();
                 eventListener.onEvent(StateId.MAIN_SCREEN);
             }
         });
