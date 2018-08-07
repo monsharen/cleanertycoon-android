@@ -24,6 +24,10 @@ public class TimePlayed {
         years = (int) Math.floor((player.getTimePlayed() / DAYS_IN_WEEK) / WEEKS_IN_YEAR);
     }
 
+    public void togglePause() {
+        paused = !paused;
+    }
+
     public boolean isPaused() {
         return paused;
     }

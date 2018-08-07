@@ -21,20 +21,23 @@ public class PlayState implements State, LifeCycleAware {
     private RecyclerView.Adapter employeeListAdapter;
     private EventListener eventListener;
     private Timer timer = null;
+    private GameLogic gameLogic;
+    private Activity activity;
 
     @Override
     public void init(final Activity activity, Session session, final GameLogic gameLogic, final EventListener eventListener) {
+        this.activity = activity;
         this.eventListener = eventListener;
         activity.setContentView(R.layout.activity_main);
+        this.gameLogic = gameLogic;
 
-        configurePlayerView(activity, gameLogic.getPlayer());
-        configureEmployeeListView(activity, gameLogic.getPlayer().getCompany().getEmployees());
-        configureTimePlayed(activity, gameLogic, eventListener);
-        configureActionMenu(activity);
+        configurePlayerView(gameLogic.getPlayer());
+        configureEmployeeListView(gameLogic.getPlayer().getCompany().getEmployees());
+        configureTimePlayed(gameLogic);
+        configureActionMenu();
 
-        final Button button = activity.findViewById(R.id.playPauseButton);
-        button.setText("Pause");
         gameLogic.getTimePlayed().start();
+        updatePlayPauseButton();
 
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -76,7 +79,7 @@ public class PlayState implements State, LifeCycleAware {
         }
     }
 
-    private void configurePlayerView(Activity activity, Player player) {
+    private void configurePlayerView(Player player) {
         TextView textView = activity.findViewById(R.id.playerCompanyName);
         textView.setText(player.getCompany().getName());
         textView = activity.findViewById(R.id.playerFunds);
@@ -85,7 +88,7 @@ public class PlayState implements State, LifeCycleAware {
         rating.setNumStars(player.getCompany().getRating());
     }
 
-    private void configureEmployeeListView(Activity activity, List<Employee> employees) {
+    private void configureEmployeeListView(List<Employee> employees) {
         RecyclerView employeeListRecyclerView = activity.findViewById(R.id.recycler_view);
         employeeListRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity);
@@ -97,23 +100,19 @@ public class PlayState implements State, LifeCycleAware {
         employeeListRecyclerView.setAdapter(employeeListAdapter);
     }
 
-    private void configureTimePlayed(Activity activity, final GameLogic gameLogic, final EventListener eventListener) {
+    private void configureTimePlayed(final GameLogic gameLogic) {
 
         final Button button = activity.findViewById(R.id.playPauseButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePlayed timePlayed = gameLogic.getTimePlayed();
-                if (timePlayed.isPaused()) {
-                    eventListener.onEvent(StateId.PLAYING);
-                } else {
-                    eventListener.onEvent(StateId.PAUSED);
-                }
+                gameLogic.getTimePlayed().togglePause();
+                updatePlayPauseButton();
             }
         });
     }
 
-    private void configureActionMenu(final Activity activity) {
+    private void configureActionMenu() {
 
         final Button button = activity.findViewById(R.id.recruitButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -130,17 +129,28 @@ public class PlayState implements State, LifeCycleAware {
         if (employeeListAdapter != null) {
             employeeListAdapter.notifyDataSetChanged();
         }
+
+        updatePlayPauseButton();
     }
 
     @Override
     public void onPause() {
-        eventListener.onEvent(StateId.PAUSED);
+        gameLogic.getTimePlayed().pause();
     }
 
     @Override
     public void onDestroy() {
         if (employeeListAdapter != null) {
             employeeListAdapter = null;
+        }
+    }
+
+    private void updatePlayPauseButton() {
+        final Button button = activity.findViewById(R.id.playPauseButton);
+        if (gameLogic.getTimePlayed().isPaused()) {
+            button.setText("Play");
+        } else {
+            button.setText("Pause");
         }
     }
 
