@@ -40,6 +40,7 @@ public class GameLogic {
 
     public void startNewGame() {
         RecruitmentDatabase.getInstance().refreshAvailableRecruits();
+        ContractDatabase.getInstance().refreshAvailableContracts();
         Company company = new Company("CleanTech", 10000);
         player = new Player(company);
         timePlayed = new TimePlayed(player);
