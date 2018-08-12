@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import android.widget.TextView;
 import com.lionsinvests.cleanertycoon.game.Contract;
 import com.lionsinvests.cleanertycoon.game.ContractDatabase;
 import com.lionsinvests.cleanertycoon.game.SimpleRecyclerListAdapter;
@@ -17,6 +18,7 @@ import com.lionsinvests.cleanertycoon.game.statemachine.State;
 import com.lionsinvests.cleanertycoon.game.statemachine.StateId;
 
 import java.util.List;
+import java.util.Locale;
 
 public class AvailableContractsState implements State {
 
@@ -74,15 +76,27 @@ public class AvailableContractsState implements State {
         }
 
         @Override
-        public int getNumberOfTexts() {
-            return 2;
+        public View[] getViews(View view) {
+            View[] views = new View[6];
+            views[0] = view.findViewById(R.id.name);
+            views[1] = view.findViewById(R.id.length);
+            views[2] = view.findViewById(R.id.pay);
+            views[3] = view.findViewById(R.id.happiness);
+            views[4] = view.findViewById(R.id.terminationFee);
+            views[5] = view.findViewById(R.id.level);
+            return views;
         }
 
         @Override
         public void assignViewData(SimpleRecyclerListAdapter.ViewHolder holder, int position) {
             Contract contract = contracts.get(position);
-            holder.texts[0] = "Name: " + contract.getName();
-            holder.texts[1] = "Length: " + contract.getLength();
+            ((TextView) holder.views[0]).setText(contract.getName());
+            ((TextView) holder.views[1]).setText(String.format(Locale.getDefault(), "Length: %d weeks", contract.getLength()));
+            ((TextView) holder.views[2]).setText(String.format(Locale.getDefault(), "Pay: $%.0f", contract.getPay()));
+            ((TextView) holder.views[3]).setText(String.format(Locale.getDefault(), "Happiness: %d", contract.getHappiness()));
+            ((TextView) holder.views[4]).setText(String.format(Locale.getDefault(), "Termination fee: $%.0f", contract.getTerminationFee()));
+            ((TextView) holder.views[5]).setText(String.format(Locale.getDefault(), "Level: %d", contract.getLevel()));
+
         }
 
         @Override

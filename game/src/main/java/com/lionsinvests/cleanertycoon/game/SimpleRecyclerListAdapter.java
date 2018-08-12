@@ -6,16 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import java.util.List;
-
 public class SimpleRecyclerListAdapter extends RecyclerView.Adapter<SimpleRecyclerListAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final String[] texts;
+        public final View[] views;
 
-        private ViewHolder(View viewHolder, String... texts) {
+        private ViewHolder(View viewHolder, View... views) {
             super(viewHolder);
-            this.texts = texts;
+            this.views = views;
         }
     }
 
@@ -29,10 +27,8 @@ public class SimpleRecyclerListAdapter extends RecyclerView.Adapter<SimpleRecycl
     public SimpleRecyclerListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(simpleListPopulator.getItemLayoutId(), parent, false);
         v.setOnClickListener(simpleListPopulator.getOnClickListener());
-        String[] texts = new String[simpleListPopulator.getNumberOfTexts()];
-        ViewHolder vh = new ViewHolder(v, texts);
-
-        return vh;
+        View[] views = simpleListPopulator.getViews(v);
+        return new ViewHolder(v, views);
     }
 
     @Override
@@ -48,7 +44,7 @@ public class SimpleRecyclerListAdapter extends RecyclerView.Adapter<SimpleRecycl
     public interface SimpleListPopulator {
         int getItemLayoutId();
         int getListSize();
-        int getNumberOfTexts();
+        View[] getViews(View view);
         void assignViewData(SimpleRecyclerListAdapter.ViewHolder holder, int position);
         View.OnClickListener getOnClickListener();
     }
