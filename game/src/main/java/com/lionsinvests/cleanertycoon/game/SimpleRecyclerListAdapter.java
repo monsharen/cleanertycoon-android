@@ -52,44 +52,4 @@ public class SimpleRecyclerListAdapter extends RecyclerView.Adapter<SimpleRecycl
         void assignViewData(SimpleRecyclerListAdapter.ViewHolder holder, int position);
         View.OnClickListener getOnClickListener();
     }
-
-    public class ContractSimpleListPopulator implements SimpleListPopulator {
-
-        private final List<Contract> contracts;
-
-        public ContractSimpleListPopulator(List<Contract> contracts) {
-            this.contracts = contracts;
-        }
-
-        @Override
-        public int getItemLayoutId() {
-            return R.layout.contract_list_item;
-        }
-
-        @Override
-        public int getListSize() {
-            return contracts.size();
-        }
-
-        @Override
-        public int getNumberOfTexts() {
-            return 6;
-        }
-
-        @Override
-        public void assignViewData(ViewHolder holder, int position) {
-            Contract contract = contracts.get(position);
-            holder.texts[0] = "";
-        }
-
-        @Override
-        public View.OnClickListener getOnClickListener() {
-            return new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            };
-        }
-    }
 }

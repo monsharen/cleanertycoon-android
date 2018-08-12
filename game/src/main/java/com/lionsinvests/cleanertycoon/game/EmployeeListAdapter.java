@@ -16,11 +16,13 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
     static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView employeeName;
         private TextView happiness;
+        private TextView contract;
 
-        private ViewHolder(View viewHolder, TextView employeeName, TextView happiness) {
+        private ViewHolder(View viewHolder, TextView employeeName, TextView happiness, TextView contract) {
             super(viewHolder);
             this.employeeName = employeeName;
             this.happiness = happiness;
+            this.contract = contract;
         }
     }
 
@@ -38,7 +40,8 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
 
         TextView name = v.findViewById(R.id.employeeName);
         TextView happiness = v.findViewById(R.id.employeeHappiness);
-        ViewHolder vh = new ViewHolder(v, name, happiness);
+        TextView employeeContract = v.findViewById(R.id.employeeContract);
+        ViewHolder vh = new ViewHolder(v, name, happiness, employeeContract);
 
         return vh;
     }
@@ -48,6 +51,13 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
         Employee employee = employeeList.get(position);
         holder.employeeName.setText(employee.getName());
         holder.happiness.setText("Happiness: " + employee.getHappiness());
+
+        Contract contract = employee.getContract();
+        if (contract != null) {
+            holder.contract.setText("Contract: " + contract.getName());
+        }
+
+
 
     }
 

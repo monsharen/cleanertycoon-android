@@ -81,7 +81,7 @@ public class AvailableContractsState implements State {
         @Override
         public void assignViewData(SimpleRecyclerListAdapter.ViewHolder holder, int position) {
             Contract contract = contracts.get(position);
-            holder.texts[0] = contract.getName();
+            holder.texts[0] = "Name: " + contract.getName();
             holder.texts[1] = "Length: " + contract.getLength();
         }
 
