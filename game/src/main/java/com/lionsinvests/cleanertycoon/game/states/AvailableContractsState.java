@@ -11,7 +11,6 @@ import com.lionsinvests.cleanertycoon.game.SimpleRecyclerListAdapter;
 import com.lionsinvests.cleanertycoon.game.Employee;
 import com.lionsinvests.cleanertycoon.game.GameLogic;
 import com.lionsinvests.cleanertycoon.game.R;
-import com.lionsinvests.cleanertycoon.game.RecruitmentDatabase;
 import com.lionsinvests.cleanertycoon.game.statemachine.EventListener;
 import com.lionsinvests.cleanertycoon.game.statemachine.Session;
 import com.lionsinvests.cleanertycoon.game.statemachine.State;
@@ -25,6 +24,7 @@ public class AvailableContractsState implements State {
     private RecyclerView.Adapter recyclerViewAdapter = null;
     private Activity activity;
     private Session session;
+    private GameLogic gameLogic;
     private EventListener eventListener;
     
     @Override
@@ -32,6 +32,7 @@ public class AvailableContractsState implements State {
         activity.setContentView(R.layout.activity_contracts);
         this.activity = activity;
         this.session = session;
+        this.gameLogic = gameLogic;
         this.eventListener = eventListener;
 
         configureAvailableContracts();
@@ -100,8 +101,13 @@ public class AvailableContractsState implements State {
 
         @Override
         public void onClick(View view) {
+            Integer employeeId = session.getInteger("employeeId");
+            Employee employee = gameLogic.getPlayer().getCompany().getEmployees().get(employeeId);
+
             int itemPosition = mRecyclerView.getChildLayoutPosition(view);
-            session.put("contractId", itemPosition);
+            Contract contract = ContractDatabase.getInstance().getContracts().get(itemPosition);
+            ContractDatabase.getInstance().getContracts().remove(contract);
+            employee.setContract(contract);
             eventListener.onEvent(StateId.MAIN_SCREEN);
 
         }

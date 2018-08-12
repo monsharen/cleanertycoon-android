@@ -43,7 +43,14 @@ public class EmployeeState implements State {
     }
 
     private void configureMenu() {
-        Button view = activity.findViewById(R.id.backButton);
+        Button view = activity.findViewById(R.id.contractButton);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                eventListener.onEvent(StateId.AVAILABLE_CONTRACTS);
+            }
+        });
+        view = activity.findViewById(R.id.backButton);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
