@@ -10,6 +10,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="#555"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarAlwaysDrawHorizontalTrack="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal|vertical"
+                android:id="@+id/map"
+                android:scaleType="center"
+                android:background="#000"
+                android:src="@drawable/map"
+                />
+        </ScrollView>
+
+
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
