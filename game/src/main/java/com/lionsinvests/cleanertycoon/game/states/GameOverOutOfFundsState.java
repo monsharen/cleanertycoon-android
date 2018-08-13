@@ -1,4 +1,4 @@
-package com.lionsinvests.cleanertycoon.game.events;
+package com.lionsinvests.cleanertycoon.game.states;
 
 import android.app.Activity;
 import android.util.Log;

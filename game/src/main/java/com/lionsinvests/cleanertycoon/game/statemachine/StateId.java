@@ -7,5 +7,6 @@ public enum StateId {
     HIRE,
     EMPLOYEE,
     AVAILABLE_CONTRACTS,
-    GAME_OVER_OUT_OF_FUNDS
+    GAME_OVER_OUT_OF_FUNDS,
+    GAME_EVENT
 }

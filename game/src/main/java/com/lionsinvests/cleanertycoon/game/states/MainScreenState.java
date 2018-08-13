@@ -57,18 +57,20 @@ public class MainScreenState implements State, LifeCycleAware {
             public void run() {
                 try {
                     gameLogic.timeTick();
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            redrawTimerStats();
+                        }
+                    });
                 } catch (OutOfFundsException e) {
                     eventListener.onEvent(StateId.GAME_OVER_OUT_OF_FUNDS);
+                } catch (GameEventException e) {
+                    eventListener.onEvent(StateId.GAME_EVENT);
                 } catch (GameException e) {
                     Log.e(MainScreenState.class.getSimpleName(), "failed to perform turn" , e);
                 }
-
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        redrawTimerStats();
-                    }
-                });
             }
         }, 1000, 1000);
     }

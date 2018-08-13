@@ -1,6 +1,6 @@
 package com.lionsinvests.cleanertycoon.game.statemachine;
 
-import com.lionsinvests.cleanertycoon.game.events.GameOverOutOfFundsState;
+import com.lionsinvests.cleanertycoon.game.states.GameOverOutOfFundsState;
 import com.lionsinvests.cleanertycoon.game.states.*;
 
 import java.util.HashMap;
@@ -18,6 +18,7 @@ public class StateRegistry {
         STATES.put(StateId.HIRE, new HireState());
         STATES.put(StateId.EMPLOYEE, new EmployeeState());
         STATES.put(StateId.AVAILABLE_CONTRACTS, new AvailableContractsState());
+        STATES.put(StateId.GAME_EVENT, new GameEventState());
     }
 
     public State get(StateId stateId) {

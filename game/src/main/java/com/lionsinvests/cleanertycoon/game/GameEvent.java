@@ -1,6 +1,10 @@
 package com.lionsinvests.cleanertycoon.game;
 
+import com.lionsinvests.cleanertycoon.game.gameevent.GameEventIcon;
+
 public interface GameEvent {
 
-    void execute();
+    String getCaption();
+    String getMessage();
+    GameEventIcon getIcon();
 }
