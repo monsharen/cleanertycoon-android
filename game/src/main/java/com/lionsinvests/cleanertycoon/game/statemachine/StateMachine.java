@@ -32,7 +32,13 @@ public class StateMachine implements LifeCycleAware {
             currentState.end();
         }
         currentState = stateRegistry.get(stateId);
-        currentState.init(activity, session, gameLogic, eventListener);
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                currentState.init(activity, session, gameLogic, eventListener);
+            }
+        });
+
     }
 
 

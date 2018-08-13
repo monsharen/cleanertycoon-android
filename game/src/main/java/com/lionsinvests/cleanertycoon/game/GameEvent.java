@@ -7,4 +7,5 @@ public interface GameEvent {
     String getCaption();
     String getMessage();
     GameEventIcon getIcon();
+    void execute();
 }

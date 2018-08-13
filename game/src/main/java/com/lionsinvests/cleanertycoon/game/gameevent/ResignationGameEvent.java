@@ -2,12 +2,15 @@ package com.lionsinvests.cleanertycoon.game.gameevent;
 
 import com.lionsinvests.cleanertycoon.game.Employee;
 import com.lionsinvests.cleanertycoon.game.GameEvent;
+import com.lionsinvests.cleanertycoon.game.Player;
 
 public class ResignationGameEvent implements GameEvent {
 
+    private final Player player;
     private final Employee employee;
 
-    public ResignationGameEvent(Employee employee) {
+    public ResignationGameEvent(Player player, Employee employee) {
+        this.player = player;
         this.employee = employee;
     }
 
@@ -24,5 +27,10 @@ public class ResignationGameEvent implements GameEvent {
     @Override
     public GameEventIcon getIcon() {
         return GameEventIcon.ANGRY;
+    }
+
+    @Override
+    public void execute() {
+        player.getCompany().getEmployees().remove(employee);
     }
 }

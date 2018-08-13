@@ -61,7 +61,7 @@ public class MainScreenState implements State, LifeCycleAware {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            redrawTimerStats();
+                            redraw();
                         }
                     });
                 } catch (OutOfFundsException e) {
@@ -75,7 +75,7 @@ public class MainScreenState implements State, LifeCycleAware {
         }, 1000, 1000);
     }
 
-    private void redrawTimerStats() {
+    private void redraw() {
         Player player = gameLogic.getPlayer();
 
         TimePlayed timePlayed = gameLogic.getTimePlayed();
@@ -87,6 +87,8 @@ public class MainScreenState implements State, LifeCycleAware {
         textView.setText(String.format(Locale.getDefault(), "Years: %d", timePlayed.getYears()));
         textView = activity.findViewById(R.id.playerFunds);
         textView.setText(String.format(Locale.getDefault(), "Funds: $%.0f", player.getCompany().getFunds()));
+
+        employeeListAdapter.notifyDataSetChanged();
     }
 
     private void configurePlayerView(Player player) {
@@ -111,7 +113,7 @@ public class MainScreenState implements State, LifeCycleAware {
     }
 
     private void configureTimePlayed(final GameLogic gameLogic) {
-        redrawTimerStats();
+        redraw();
         final Button button = activity.findViewById(R.id.playPauseButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

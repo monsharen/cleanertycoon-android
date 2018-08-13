@@ -70,7 +70,7 @@ public class GameLogic {
                 employee.setHappiness(employee.getHappiness() - happinessDeduction);
 
                 if (employee.getHappiness() <= 0) {
-                    events.add(new ResignationGameEvent(employee));
+                    events.add(new ResignationGameEvent(player, employee));
                 }
             }
         }

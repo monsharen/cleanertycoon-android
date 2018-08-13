@@ -7,7 +7,7 @@ public enum GameEventIcon {
     private final String drawable;
 
     GameEventIcon(String drawable) {
-        this.drawable = "@drawable/" + drawable;
+        this.drawable = drawable;
     }
 
     public String getDrawable() {
