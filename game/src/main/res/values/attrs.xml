@@ -1,0 +1,10 @@
+<resources>
+    <declare-styleable name="EmployeeProfile">
+        <attr name="skinColor" format="color" />
+        <attr name="facialFeature" format="integer" />
+        <attr name="hairStyle" format="integer" />
+        <attr name="shirtColor" format="color" />
+        <attr name="trouserColor" format="color" />
+        <attr name="shoeColor" format="color" />
+    </declare-styleable>
+</resources>
