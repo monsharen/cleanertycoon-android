@@ -1,9 +1,9 @@
-package com.lionsinvests.cleanertycoon.game.components;
+package com.lionsinvests.cleanertycoon.game.components.employeeprofilepic;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public class PixelCanvas {
+class PixelCanvas {
 
     private final Paint paint;
     private final float brushSize;
@@ -15,11 +15,11 @@ public class PixelCanvas {
         this.brushSize = brushSize;
     }
 
-    public void onDraw(Canvas canvas) {
+    void onDraw(Canvas canvas) {
         this.canvas = canvas;
     }
 
-    public void drawPixel(float x, float y) {
+    void drawPixel(float x, float y) {
 
         float left = x * brushSize;
         float top = y * brushSize;
@@ -34,7 +34,7 @@ public class PixelCanvas {
                 paint);
     }
 
-    public void drawBox(float startX,
+    void drawBox(float startX,
                         float startY,
                         float length,
                         float height) {
@@ -51,7 +51,7 @@ public class PixelCanvas {
                 paint);
     }
 
-    public void drawLine(
+    void drawLine(
             float startX,
             float startY,
             float length) {

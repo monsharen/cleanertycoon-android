@@ -1,4 +1,4 @@
-package com.lionsinvests.cleanertycoon.game.components;
+package com.lionsinvests.cleanertycoon.game.components.employeeprofilepic;
 
 import android.content.Context;
 import android.graphics.Canvas;

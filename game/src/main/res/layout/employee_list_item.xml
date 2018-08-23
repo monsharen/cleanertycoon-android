@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <com.lionsinvests.cleanertycoon.game.components.EmployeeProfileView
+        <com.lionsinvests.cleanertycoon.game.components.employeeprofilepic.EmployeeProfileView
             android:layout_width="128dp"
             android:layout_height="128dp"
             app:skinColor="@android:color/black"
