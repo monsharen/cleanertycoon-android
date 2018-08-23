@@ -49,8 +49,9 @@ public class EmployeeProfileView extends android.support.v7.widget.AppCompatImag
         bodyPixelCanvas = new PixelCanvas(paint, brushSize, START_X, START_Y + 16);
         trouserPixelCanvas = new PixelCanvas(paint, brushSize, START_X, START_Y + 32);
 
-        parts.add(new CowboyHatBodyPart(headPixelCanvas, paint));
         parts.add(new FaceBodyPart(headPixelCanvas, paint, SKIN_COLOR));
+        parts.add(new ProtoHairBodyPart(headPixelCanvas, paint));
+        parts.add(new CowboyHatBodyPart(headPixelCanvas, paint));
         parts.add(new SweaterBodyPart(bodyPixelCanvas, paint, Color.BLUE, SKIN_COLOR));
         parts.add(new TrousersBodyPart(trouserPixelCanvas, paint, Color.CYAN));
         parts.add(new StandardShoesBodyPart(trouserPixelCanvas, paint, Color.DKGRAY));
