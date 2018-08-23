@@ -11,9 +11,17 @@ public class EmployeeProfileView extends android.support.v7.widget.AppCompatImag
 
     private static int BRUSH_SIZE_DP = 3;
 
+    private static int START_X = 15;
+    private static int START_Y = 5;
+
     private PixelCanvas pixelCanvas;
 
     private Paint paint;
+
+    private FaceBodyPart faceBodyPart;
+    private SweaterBodyPart sweaterBodyPart;
+    private TrousersBodyPart trousersBodyPart;
+    private StandardShoesBodyPart standardShoesBodyPart;
 
     public EmployeeProfileView(Context context) {
         super(context);
@@ -34,6 +42,11 @@ public class EmployeeProfileView extends android.support.v7.widget.AppCompatImag
         paint = new Paint();
         float brushSize =  getBrushSize();
         pixelCanvas = new PixelCanvas(paint, brushSize);
+
+        faceBodyPart = new FaceBodyPart(pixelCanvas, paint, Color.YELLOW);
+        sweaterBodyPart = new SweaterBodyPart(pixelCanvas, paint, Color.BLUE, Color.YELLOW);
+        trousersBodyPart = new TrousersBodyPart(pixelCanvas, paint, Color.CYAN);
+        standardShoesBodyPart = new StandardShoesBodyPart(pixelCanvas, paint, Color.DKGRAY);
     }
 
     @Override
@@ -41,68 +54,11 @@ public class EmployeeProfileView extends android.support.v7.widget.AppCompatImag
         super.onDraw(canvas);
         pixelCanvas.onDraw(canvas);
         paint.setStyle(Paint.Style.FILL);
-        drawFace(Color.YELLOW);
-        drawBody(Color.BLUE);
-        drawTrousers(Color.GREEN);
-        drawFeet(Color.RED);
-    }
 
-    private void drawFace(int color) {
-        paint.setColor(color);
-        drawLine(4, 5, 2);
-        drawLine(3, 6, 3);
-        drawLine(3, 6, 4);
-        drawLine(3, 6, 5);
-        drawLine(3, 6, 6);
-        drawLine(3, 6, 7);
-        drawLine(4, 5, 8);
-        drawLine(4, 4, 9);
-
-        paint.setColor(Color.BLACK);
-        pixelCanvas.drawPixel(5, 5);
-        pixelCanvas.drawPixel(7, 5);
-    }
-
-    private void drawBody(int color) {
-        paint.setColor(color);
-        drawLine(4, 4, 10);
-        drawLine(2, 8, 11);
-        drawLine(1, 10, 12);
-
-        // main body
-        pixelCanvas.drawBox(3, 13, 6, 6);
-
-        // left arm
-        pixelCanvas.drawBox(1, 13, 1, 6);
-
-        // right arm
-        pixelCanvas.drawBox(10, 13, 1, 6);
-    }
-
-    private void drawTrousers(int color) {
-        paint.setColor(color);
-
-        // top part
-        pixelCanvas.drawBox(3, 19, 6, 2);
-
-        // left leg
-        pixelCanvas.drawBox(3, 21, 1, 7);
-
-        // right leg
-        pixelCanvas.drawBox(8, 21, 1, 7);
-    }
-
-    private void drawFeet(int color) {
-        paint.setColor(color);
-        // left leg
-        pixelCanvas.drawBox(2, 28, 2, 1);
-
-        // right leg
-        pixelCanvas.drawBox(8, 28, 3, 1);
-    }
-
-    private void drawLine(int fromX, int length, int y) {
-        pixelCanvas.drawLine(fromX, y, length);
+        faceBodyPart.draw(START_X, START_Y);
+        sweaterBodyPart.draw(START_X, START_Y);
+        trousersBodyPart.draw(START_X, START_Y);
+        standardShoesBodyPart.draw(START_X, START_Y);
     }
 
     private float getBrushSize() {
