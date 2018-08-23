@@ -14,25 +14,39 @@ public class SweaterBodyPart extends BaseBodyPart {
     }
 
     @Override
-    public void draw(int x, int y) {
+    public void draw() {
         paint.setColor(sweaterColor);
 
-        pixelCanvas.drawLine(x + 4, y + 10,4);
-        pixelCanvas.drawLine(x + 2, y + 11,8);
-        pixelCanvas.drawLine(x + 1, y + 12,10);
-
-        // main body
-        pixelCanvas.drawBox(x + 3, y + 13, 6, 6);
+        pixelCanvas.drawLine(6, 0,4);
+        pixelCanvas.drawBox(3, 1, 9, 2);
+        pixelCanvas.drawBox(4, 2, 7, 14);
 
         // left arm
-        pixelCanvas.drawBox(x + 1, y + 13, 1, 6);
+        pixelCanvas.drawBox(2, 2, 1, 12);
+
 
         // right arm
-        pixelCanvas.drawBox(x + 10, y + 13, 1, 6);
+        pixelCanvas.drawBox(12, 2, 1, 12);
 
         paint.setColor(skinColor);
-        pixelCanvas.drawPixel(x + 1, y + 19);
-        pixelCanvas.drawPixel(x + 10, y + 19);
+        pixelCanvas.drawBox(2, 14, 1, 2);
+        pixelCanvas.drawBox(12, 14, 1, 2);
+/*
+        pixelCanvas.drawLine(2, 1,8);
+        pixelCanvas.drawLine(1, 2,10);
 
+        // main body
+        pixelCanvas.drawBox(3, 3, 6, 6);
+
+        // left arm
+        pixelCanvas.drawBox(1, 3, 1, 6);
+
+        // right arm
+        pixelCanvas.drawBox(10, 3, 1, 6);
+
+        paint.setColor(skinColor);
+        pixelCanvas.drawPixel(1, 8);
+        pixelCanvas.drawPixel(10, 8);
+        */
     }
 }

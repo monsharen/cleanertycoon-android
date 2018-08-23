@@ -12,16 +12,16 @@ public class TrousersBodyPart extends BaseBodyPart {
     }
 
     @Override
-    public void draw(int x, int y) {
+    public void draw() {
         paint.setColor(color);
 
         // top part
-        pixelCanvas.drawBox(x + 3, y + 19, 6, 2);
+        pixelCanvas.drawBox(4, 0, 7, 2);
 
         // left leg
-        pixelCanvas.drawBox(x + 3, y + 21, 1, 7);
+        pixelCanvas.drawBox(4, 2, 1, 11);
 
         // right leg
-        pixelCanvas.drawBox(x + 8, y + 21, 1, 7);
+        pixelCanvas.drawBox(10, 2, 1, 11);
     }
 }

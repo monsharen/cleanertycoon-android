@@ -12,12 +12,17 @@ public class StandardShoesBodyPart extends BaseBodyPart {
     }
 
     @Override
-    public void draw(int x, int y) {
+    public void draw() {
         paint.setColor(color);
         // left leg
-        pixelCanvas.drawBox(x + 2, y + 28, 2, 1);
+        pixelCanvas.drawPixel(4, 13);
+        pixelCanvas.drawLine(3, 14, 2);
+        pixelCanvas.drawLine(2, 15, 3);
 
         // right leg
-        pixelCanvas.drawBox(x + 8, y + 28, 3, 1);
+        pixelCanvas.drawPixel(10, 13);
+        pixelCanvas.drawLine(10, 14, 3);
+        pixelCanvas.drawPixel(10, 15);
+        pixelCanvas.drawLine(12, 15, 2);
     }
 }

@@ -12,5 +12,5 @@ public abstract class BaseBodyPart implements BodyPart {
         this.pixelCanvas = pixelCanvas;
     }
 
-    public abstract void draw(int x, int y);
+    public abstract void draw();
 }
