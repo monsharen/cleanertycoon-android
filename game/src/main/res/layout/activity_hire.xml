@@ -9,22 +9,26 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+        <com.lionsinvests.cleanertycoon.game.components.EmployeeProfileView
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            app:skinColor="@android:color/black"
+            android:background="@android:color/black"
+            />
 
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" app:srcCompat="@mipmap/ic_launcher"
-                    android:id="@+id/imageView"/>
-
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
 
                 <TextView
                         android:text="Name"
@@ -56,7 +60,8 @@
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
             <Button
                     android:text="Hire"
                     android:layout_width="wrap_content"

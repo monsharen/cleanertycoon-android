@@ -6,9 +6,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.View;
 
-public class EmployeeProfileView extends View {
+public class EmployeeProfileView extends android.support.v7.widget.AppCompatImageView {
+
+    private static int BRUSH_SIZE_DP = 3;
+
+    private PixelCanvas pixelCanvas;
 
     private Paint paint;
 
@@ -29,43 +32,80 @@ public class EmployeeProfileView extends View {
 
     private void init() {
         paint = new Paint();
+        float brushSize =  getBrushSize();
+        pixelCanvas = new PixelCanvas(paint, brushSize);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        PixelDensityCanvas pixelDensityCanvas = new PixelDensityCanvas(getResources(), canvas, 2);
+        pixelCanvas.onDraw(canvas);
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.YELLOW);
-        drawFace(pixelDensityCanvas);
-
-        paint.setColor(Color.BLUE);
-        drawBody(pixelDensityCanvas);
+        drawFace(Color.YELLOW);
+        drawBody(Color.BLUE);
+        drawTrousers(Color.GREEN);
+        drawFeet(Color.RED);
     }
 
-    private void drawFace(PixelDensityCanvas canvas) {
-        drawLine(canvas, 4, 5, 2);
-        drawLine(canvas, 3, 6, 3);
-        drawLine(canvas, 3, 6, 4);
-        drawLine(canvas, 3, 6, 5);
-        drawLine(canvas, 3, 6, 6);
-        drawLine(canvas, 3, 6, 7);
-        drawLine(canvas, 4, 5, 8);
-        drawLine(canvas, 4, 4, 9);
+    private void drawFace(int color) {
+        paint.setColor(color);
+        drawLine(4, 5, 2);
+        drawLine(3, 6, 3);
+        drawLine(3, 6, 4);
+        drawLine(3, 6, 5);
+        drawLine(3, 6, 6);
+        drawLine(3, 6, 7);
+        drawLine(4, 5, 8);
+        drawLine(4, 4, 9);
+
+        paint.setColor(Color.BLACK);
+        pixelCanvas.drawPixel(5, 5);
+        pixelCanvas.drawPixel(7, 5);
     }
 
-    private void drawBody(PixelDensityCanvas canvas) {
-        drawLine(canvas, 4, 4, 10);
-        drawLine(canvas, 1, 8, 11);
-        drawLine(canvas, 0, 9, 12);
+    private void drawBody(int color) {
+        paint.setColor(color);
+        drawLine(4, 4, 10);
+        drawLine(2, 8, 11);
+        drawLine(1, 10, 12);
 
+        // main body
+        pixelCanvas.drawBox(3, 13, 6, 6);
+
+        // left arm
+        pixelCanvas.drawBox(1, 13, 1, 6);
+
+        // right arm
+        pixelCanvas.drawBox(10, 13, 1, 6);
     }
 
-    private void drawLine(PixelDensityCanvas canvas, int fromX, int length, int y) {
-        //int endX = fromX + length;
-        /* for (int x = fromX; x < endX; x++) {
-            canvas.drawPoint(x, y, paint);
-        } */
-        canvas.drawLine(fromX, y, length, paint);
+    private void drawTrousers(int color) {
+        paint.setColor(color);
+
+        // top part
+        pixelCanvas.drawBox(3, 19, 6, 2);
+
+        // left leg
+        pixelCanvas.drawBox(3, 21, 1, 7);
+
+        // right leg
+        pixelCanvas.drawBox(8, 21, 1, 7);
+    }
+
+    private void drawFeet(int color) {
+        paint.setColor(color);
+        // left leg
+        pixelCanvas.drawBox(2, 28, 2, 1);
+
+        // right leg
+        pixelCanvas.drawBox(8, 28, 3, 1);
+    }
+
+    private void drawLine(int fromX, int length, int y) {
+        pixelCanvas.drawLine(fromX, y, length);
+    }
+
+    private float getBrushSize() {
+        return (BRUSH_SIZE_DP * getResources().getDisplayMetrics().density);
     }
 }
