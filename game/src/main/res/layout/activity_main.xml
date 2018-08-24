@@ -6,132 +6,99 @@
     android:layout_height="wrap_content"
     tools:context=".activities.MainActivity">
 
-    <LinearLayout android:orientation="vertical"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:weightSum="2">
-
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="0dp"
-                      android:layout_weight="1"
-                      android:background="#192832">
-
-            <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:tools="http://schemas.android.com/tools"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-
-                        android:background="#555"
-                        android:scrollbarAlwaysDrawVerticalTrack="true"
-                        android:scrollbarAlwaysDrawHorizontalTrack="true">
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:scrollbars="horizontal|vertical"
-                        android:id="@+id/map"
-                        android:scaleType="center"
-                        android:background="#000"
-                        android:src="@drawable/map"
-                />
-            </ScrollView>
-        </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
         <LinearLayout
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="wrap_content">
 
             <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                    <TextView
-                            android:text="Days: 1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/playerDaysPlayed"/>
-                    <TextView
-                            android:text="Weeks: 0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/playerWeeksPlayed"/>
-                    <TextView
-                            android:text="Years: 0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/playerYearsPlayed"/>
-                </LinearLayout>
-                <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                />
-
-                <Button
-                        android:text="Play"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/playPauseButton"
-                />
-
-            </LinearLayout>
-
-            <TextView
-                    android:text="Company name: "
+                    android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/playerCompanyName"/>
-            <TextView
-                    android:text="Funds: "
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/playerFunds"/>
-
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 <TextView
-                        android:text="Rating: "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                <RatingBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/playerRating"
-                        android:numStars="5"
-                        android:stepSize="1"
-                        android:rating="5" style="@style/Widget.AppCompat.RatingBar.Small"/>
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                <Button
-                        android:text="Recruit"
+                        android:text="Days: 1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/recruitButton"/>
-
+                        android:id="@+id/playerDaysPlayed"/>
+                <TextView
+                        android:text="Weeks: 0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/playerWeeksPlayed"/>
+                <TextView
+                        android:text="Years: 0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/playerYearsPlayed"/>
             </LinearLayout>
+            <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+            />
 
+            <Button
+                    android:text="Play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/playPauseButton"
+            />
 
-            <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:scrollbars="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
         </LinearLayout>
 
+        <TextView
+                android:text="Company name: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/playerCompanyName"/>
+        <TextView
+                android:text="Funds: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/playerFunds"/>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:text="Rating: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/playerRating"
+                    android:numStars="5"
+                    android:stepSize="1"
+                    android:rating="5" style="@style/Widget.AppCompat.RatingBar.Small"/>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <Button
+                    android:text="Recruit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recruitButton"/>
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

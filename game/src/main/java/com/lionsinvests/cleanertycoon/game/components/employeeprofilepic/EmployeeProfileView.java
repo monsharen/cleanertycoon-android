@@ -1,11 +1,15 @@
 package com.lionsinvests.cleanertycoon.game.components.employeeprofilepic;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +26,8 @@ public class EmployeeProfileView extends android.support.v7.widget.AppCompatImag
     private PixelCanvas headPixelCanvas;
     private PixelCanvas bodyPixelCanvas;
     private PixelCanvas trouserPixelCanvas;
+
+    private ValueAnimator animator = null;
 
     private Paint paint;
 
@@ -55,6 +61,22 @@ public class EmployeeProfileView extends android.support.v7.widget.AppCompatImag
         parts.add(new SweaterBodyPart(bodyPixelCanvas, paint, Color.BLUE, SKIN_COLOR));
         parts.add(new TrousersBodyPart(trouserPixelCanvas, paint, Color.CYAN));
         parts.add(new StandardShoesBodyPart(trouserPixelCanvas, paint, Color.DKGRAY));
+
+
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        //startAnimation();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (animator != null) {
+            animator.cancel();
+        }
     }
 
     @Override
@@ -68,6 +90,23 @@ public class EmployeeProfileView extends android.support.v7.widget.AppCompatImag
         for (BodyPart part : parts) {
            part.draw();
         }
+    }
+
+    private void startAnimation() {
+        animator = ValueAnimator.ofInt(-3, 3);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                headPixelCanvas.setShiftY(headPixelCanvas.getShiftY() - (int) valueAnimator.getAnimatedValue());
+                bodyPixelCanvas.setShiftY(bodyPixelCanvas.getShiftY() - (int) valueAnimator.getAnimatedValue());
+                invalidate();
+            }
+        });
+        animator.setInterpolator(new BounceInterpolator());
+        animator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.setRepeatMode(ValueAnimator.REVERSE);
+        animator.setDuration(500);
+        animator.start();
     }
 
     private float getBrushSize() {

@@ -6,7 +6,7 @@ import android.graphics.Paint;
 class PixelCanvas {
 
     private final int shiftX;
-    private final int shiftY;
+    private int shiftY;
 
     private final Paint paint;
     private final float brushSize;
@@ -18,6 +18,14 @@ class PixelCanvas {
         this.brushSize = brushSize;
         this.shiftX = shiftX;
         this.shiftY = shiftY;
+    }
+
+    void setShiftY(int y) {
+        this.shiftY = y;
+    }
+
+    public int getShiftY() {
+        return shiftY;
     }
 
     void onDraw(Canvas canvas) {
