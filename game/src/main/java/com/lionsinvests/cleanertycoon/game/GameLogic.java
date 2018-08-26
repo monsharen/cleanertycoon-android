@@ -12,6 +12,7 @@ public class GameLogic {
     private List<GameEvent> events;
     private TimePlayed timePlayed;
     private Player player;
+    private CategoryCalculator categoryCalculator;
 
     public GameLogic() {
         events = new ArrayList<>();
@@ -42,6 +43,7 @@ public class GameLogic {
             if (timePlayed.getDays() == 0) {
                 deductSalaries();
                 deductHappiness();
+                categoryCalculator.recalculateCategoryRates();
             }
 
             if (player.getCompany().getFunds() < 0) {
@@ -57,6 +59,7 @@ public class GameLogic {
         player = new Player(company);
         timePlayed = new TimePlayed(player);
         events = new ArrayList<>();
+        categoryCalculator = new CategoryCalculator();
     }
 
     private void deductHappiness() {
