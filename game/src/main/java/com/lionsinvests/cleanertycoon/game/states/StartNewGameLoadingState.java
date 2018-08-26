@@ -1,6 +1,7 @@
 package com.lionsinvests.cleanertycoon.game.states;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 
 import com.lionsinvests.cleanertycoon.game.GameLogic;
 import com.lionsinvests.cleanertycoon.game.R;
@@ -14,15 +15,19 @@ public class StartNewGameLoadingState implements State {
     public void init(final Activity activity, final Session session, final GameLogic gameLogic, final EventListener eventListener) {
         activity.setContentView(R.layout.activity_loading);
 
-        new Runnable() {
+        new AsyncTask<String, Void, Void>() {
+            @Override
+            protected Void doInBackground(String... strings) {
+                gameLogic.startNewGame();
+                return null;
+            }
 
             @Override
-            public void run() {
-                gameLogic.startNewGame();
-
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                eventListener.onEvent(StateId.MAIN_SCREEN);
             }
-        }.run();
-        eventListener.onEvent(StateId.MAIN_SCREEN);
+        }.execute();
     }
 
     @Override

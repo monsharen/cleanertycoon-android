@@ -26,6 +26,10 @@ public class GameLogic {
         return timePlayed;
     }
 
+    public CategoryCalculator getCategoryCalculator() {
+        return categoryCalculator;
+    }
+
     public List<GameEvent> getEvents() {
         return events;
     }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical|center_horizontal"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/category_industry" />
+
+    <TextView
+        android:id="@+id/industry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0%" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/category_government" />
+
+    <TextView
+        android:id="@+id/government"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0%" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/category_home" />
+
+    <TextView
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0%" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/category_office" />
+
+    <TextView
+        android:id="@+id/office"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0%" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/category_street" />
+
+    <TextView
+        android:id="@+id/street"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0%" />
+
+
+</LinearLayout>

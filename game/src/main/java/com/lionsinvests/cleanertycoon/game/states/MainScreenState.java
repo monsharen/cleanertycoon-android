@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import com.lionsinvests.cleanertycoon.game.*;
+import com.lionsinvests.cleanertycoon.game.components.category.CategoriesComponent;
 import com.lionsinvests.cleanertycoon.game.statemachine.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.TimerTask;
 public class MainScreenState implements State, LifeCycleAware {
 
     private RecyclerView.Adapter employeeListAdapter;
+    private CategoriesComponent categoriesComponent;
     private EventListener eventListener;
     private Timer timer = null;
     private GameLogic gameLogic;
@@ -30,8 +32,11 @@ public class MainScreenState implements State, LifeCycleAware {
         this.activity = activity;
         this.session = session;
         this.eventListener = eventListener;
-        activity.setContentView(R.layout.activity_main);
         this.gameLogic = gameLogic;
+
+
+        activity.setContentView(R.layout.activity_main);
+        configureCategoryView();
 
         configurePlayerView(gameLogic.getPlayer());
         configureEmployeeListView(gameLogic.getPlayer().getCompany().getEmployees());
@@ -89,6 +94,12 @@ public class MainScreenState implements State, LifeCycleAware {
         textView.setText(String.format(Locale.getDefault(), "Funds: $%.0f", player.getCompany().getFunds()));
 
         employeeListAdapter.notifyDataSetChanged();
+        categoriesComponent.invalidate();
+    }
+
+    private void configureCategoryView() {
+        categoriesComponent = activity.findViewById(R.id.categories);
+        categoriesComponent.setCategoryCalculator(gameLogic.getCategoryCalculator());
     }
 
     private void configurePlayerView(Player player) {
@@ -137,7 +148,6 @@ public class MainScreenState implements State, LifeCycleAware {
 
     @Override
     public void onResume() {
-        Log.d("test", "onResume");
         if (employeeListAdapter != null) {
             employeeListAdapter.notifyDataSetChanged();
         }

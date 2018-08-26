@@ -1,10 +1,15 @@
 package com.lionsinvests.cleanertycoon.game;
 
-public class Category {
+public enum Category {
+    INDUSTRY("Industry"),
+    OFFICE("Office"),
+    HOME("Home"),
+    GOVERNMENT("Government"),
+    STREET("Street");
 
     private final String name;
 
-    public Category(String name) {
+    Category(String name) {
         this.name = name;
     }
 
